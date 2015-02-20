@@ -1,0 +1,16 @@
+{
+    "contents" : "ec.xtable <- function(df, align=NULL, digits=NULL, caption=NULL) {\n  require(xtable);\n  output <- xtable(df, align=align, digits=digits, caption=caption);\n  print(output, type = \"html\", include.rownames = F, comment = F);\n}",
+    "created" : 1424086991563.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "796381461",
+    "id" : "53E68C73",
+    "lastKnownWriteTime" : 1422526496,
+    "path" : "~/R/Epiconcepts/R/ec.xtable.R",
+    "project_path" : "R/ec.xtable.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

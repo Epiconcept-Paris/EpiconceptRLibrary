@@ -1,0 +1,16 @@
+{
+    "contents" : "#exportPattern(\"^[[:alpha:]]+\")\n\nexport(\n  ec.use,\n  ec.Log,\n  VAL,\n  ec.labels,\n  ec.move,\n  ec.preview,\n  ec.Rename,\n  ec.recode,\n  ec.Save,\n  ec.Missing.check,\n  # ======== stats\n  ec.codebook,\n  ec.freq,\n  ec.max,\n  ec.mean,\n  ec.median,\n  ec.min,\n  ec.proportion,\n  ec.variance,\n  ec.summary,\n  ec.tabulate,\n  ec.xtable,\n  # ======== Epidemiology\n  CC,\n  CCInter,\n  CCTable,\n  CS,\n  CSInter,\n  CSTable,\n  # ======== Graphics\n  Plot,\n  ec.plot,\n  ec.histogram,\n  ec.agePyramid,\n  ec.epiCurve,\n  ec.pie\n)\n\n#exportClasses(\n#  ec.histogram  \n#)\n\nexportMethods(\n    Plot,\n    ec.plot,\n    Close\n)\n\nimport(methods,\n       ggplot2,\n       plyr,\n       xtable,\n       grid,\n       epiR,\n       fBasics,\n       boot)\n",
+    "created" : 1424080832197.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2231705326",
+    "id" : "B90747E2",
+    "lastKnownWriteTime" : 1422526540,
+    "path" : "~/R/Epiconcepts/NAMESPACE",
+    "project_path" : "NAMESPACE",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_namespace"
+}

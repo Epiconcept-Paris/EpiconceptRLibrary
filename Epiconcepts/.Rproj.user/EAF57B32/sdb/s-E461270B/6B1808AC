@@ -1,0 +1,21 @@
+{
+    "contents" : "",
+    "created" : 1423501170956.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "6B1808AC",
+    "lastKnownWriteTime" : 457020800,
+    "path" : null,
+    "properties" : {
+        "caption" : "DAT",
+        "contentUrl" : "content?title=DAT&file=a0c41b8e01a142dbaa8b9c6a24e0d7c6.htm",
+        "displayedObservations" : 4,
+        "displayedVariables" : 2,
+        "totalObservations" : 4,
+        "variables" : 2
+    },
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}
