@@ -1,0 +1,21 @@
+{
+    "contents" : "",
+    "created" : 1423501147261.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "3FBF3D28",
+    "lastKnownWriteTime" : 140596494630352,
+    "path" : null,
+    "properties" : {
+        "caption" : "SDF",
+        "contentUrl" : "content?title=SDF&file=e8d30af33fb74a71a8d26a3941d7053c.htm",
+        "displayedObservations" : 717,
+        "displayedVariables" : 7,
+        "totalObservations" : 717,
+        "variables" : 7
+    },
+    "source_on_save" : false,
+    "type" : "r_dataframe"
+}

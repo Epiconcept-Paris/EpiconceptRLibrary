@@ -1,0 +1,14 @@
+{
+    "data" : [
+        "\nRestarting R session...\n\n\nRestarting R session...\n\n",
+        "> ",
+        "library(Epiconcepts)",
+        "\nRestarting R session...\n\n"
+    ],
+    "type" : [
+        2,
+        0,
+        1,
+        2
+    ]
+}

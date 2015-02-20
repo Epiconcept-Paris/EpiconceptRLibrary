@@ -1,0 +1,17 @@
+{
+    "contents" : "install.packages(c(\"knitr\", \n                   \"ggplot2\", \n                   \"plyr\", \n                   \"fBasics\", \n                   \"gridExtra\",\n                   \"jsonlite\", \n                   \"xtable\",\n                   \"epiR\"\n                   ),\n                 repos=c(\"http://cran.univ-lyon1.fr\")\n                 )",
+    "created" : 1424183444794.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "2331359485",
+    "id" : "2117C7C6",
+    "lastKnownWriteTime" : 1424184489,
+    "path" : "~/R/install.pkg.R",
+    "project_path" : null,
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

@@ -1,0 +1,16 @@
+{
+    "contents" : "library(methods)\nlibrary(ggplot2);\nlibrary(plyr)\nlibrary(maptools)\n#library(rgeos)\nlibrary(gpclib)\nlibrary(sp);\n\nsetClass(\"ec.choropleth\",\n  # ==== Inheritance\n  # ==== Properties\n  representation (\n    varname        = \"character\",\n    scaleColors = \"vector\",\n    gadmFile    = \"character\",\n    geoDF       = \"data.frame\",\n    GADM        = \"SpatialPolygonsDataFrame\",\n    geoData     = \"data.frame\"\n  )           \n)\n\n# ------------------------------------------------------------------------------\n# Real constructor\n# ------------------------------------------------------------------------------\nsetMethod(\"initialize\", \"ec.choropleth\",\n  function(.Object, x, country, level, names, palette)\n  {\n    # LOAD MAP DATA\n    #load(\"TCD_adm1.RData\");\n    #.Object@GADM <-gadm;\n    #gadm;\n    .Object;\n  });\n          \n# -----------------------------------------------------------------------------\n# method show\n# -----------------------------------------------------------------------------\nsetMethod(\"show\" ,\"ec.choropleth\" ,\n  function(this){\n    plot(this@GADM);\n    ggplot() + geom_map(data = DAT, aes(map_id = REG, fill = POP2), map = SDF) + expand_limits(x = SDF$long, y = SDF$lat) + \n      geom_text(data = distcenters, aes(x = clong, y = clat, label = id, size = 0.2));\n    \n    #    align  =  c(\"l\",\"r\",\"c\",\"c\",\"r\",\"r\",\"r\",\"r\");\n#    ec.xtable(object@output, align=align);\n  }\n)\n\n# -----------------------------------------------------------------------------\n# function: ec.choropleth (call real constructor)\n# Return: an object of type ec.choropleth\n# -----------------------------------------------------------------------------\nec.choropleth <- function(x, country, level, name )\n{\n  return(new(\"ec.choropleth\", x=x, country=country, level=level, name=name));\n}\n\nec.choropleth()\n",
+    "created" : 1424080864332.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "773402899",
+    "id" : "51C70DEB",
+    "lastKnownWriteTime" : 1424080936,
+    "path" : "~/R/Epiconcepts/R/ec.choropleth.class.R",
+    "project_path" : "R/ec.choropleth.class.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}

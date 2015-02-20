@@ -1,0 +1,42 @@
+{
+    "data" : [
+        "\nR version 3.1.2 (2014-10-31) -- \"Pumpkin Helmet\"\nCopyright (C) 2014 The R Foundation for Statistical Computing\nPlatform: x86_64-redhat-linux-gnu (64-bit)\n\nR est un logiciel libre livré sans AUCUNE GARANTIE.\nVous pouvez le redistribuer sous certaines conditions.\nTapez 'license()' ou 'licence()' pour plus de détails.\n\nR est un projet collaboratif avec de nombreux contributeurs.\nTapez 'contributors()' pour plus d'information et\n'citation()' pour la façon de le citer dans les publications.\n\nTapez 'demo()' pour des démonstrations, 'help()' pour l'aide\nen ligne ou 'help.start()' pour obtenir l'aide au format HTML.\nTapez 'q()' pour quitter R.\n\n",
+        "[Workspace loaded from ~/R/Epiconcepts/.RData]\n\n\nRestarting R session...\n\n",
+        "> ",
+        "library(Epiconcepts)",
+        "Le chargement a nécessité le package : ggplot2\n",
+        "Le chargement a nécessité le package : plyr\n",
+        "Le chargement a nécessité le package : fBasics\n",
+        "Le chargement a nécessité le package : MASS\n",
+        "Le chargement a nécessité le package : timeDate\n",
+        "Le chargement a nécessité le package : timeSeries\n",
+        "\nAttachement du package : ‘fBasics’\n\n",
+        "The following object is masked from ‘package:base’:\n\n    norm\n\n",
+        "Le chargement a nécessité le package : gridExtra\n",
+        "Le chargement a nécessité le package : grid\n",
+        "Le chargement a nécessité le package : jsonlite\n",
+        "\nAttachement du package : ‘jsonlite’\n\n",
+        "The following object is masked from ‘package:utils’:\n\n    View\n\n",
+        "\nRestarting R session...\n\n"
+    ],
+    "type" : [
+        2,
+        2,
+        0,
+        1,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        3,
+        2
+    ]
+}

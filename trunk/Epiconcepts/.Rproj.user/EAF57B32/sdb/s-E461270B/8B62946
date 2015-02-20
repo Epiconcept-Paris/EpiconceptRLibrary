@@ -1,0 +1,15 @@
+{
+    "contents" : "library(ggplot2);\nlibrary(plyr)\nlibrary(maptools)\n#library(rgeos)\nlibrary(gpclib)\nlibrary(sp);\n\n# LOAD MAP DATA\nload(\"TCD_adm2.RData\");\n# VERIFY IT LOADED PROPERLY\ngadm <- gadm[gadm$NAME_1 == \"Ouaddaï\",]\nplot(gadm)\ngpclibPermit();\nSDF <- fortify(gadm, region=\"NAME_2\");\nstr(SDF);\n#stop()\n# DATA to map on choroplet\nPOP = runif(4, min=100000, max=1000000);\nREG = gadm@data$NAME_2;\nDAT <- data.frame(cbind(REG, POP));\n\nPOP2 <- cut(POP, 3, dig.lab=8);\n\ndistcenters <- ddply(SDF, .(id), summarize, clat = mean(lat), clong = mean(long))\n\nggplot() +\n  geom_map(data=DAT, aes(map_id=REG, fill=POP2), map=SDF) +\n  geom_path(data=SDF, aes(x=long, y=lat, group=group), colour=\"black\", size=0.25)+\n  scale_fill_manual(values=c(\"red\", \"yellow\", \"green\"))\n#  geom_text(data = distcenters, aes(x = clong, y = clat, label = id, size = 0.2));\n  \n\n\n",
+    "created" : 1422952547259.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "1555818798",
+    "id" : "8B62946",
+    "lastKnownWriteTime" : 1423501525,
+    "path" : "~/R HOUSE/TCHAD_GEO/s1_region.R",
+    "properties" : {
+    },
+    "source_on_save" : false,
+    "type" : "r_source"
+}
