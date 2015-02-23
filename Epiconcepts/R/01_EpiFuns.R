@@ -42,7 +42,7 @@ ec.use <- function(df = "raw", extension="csv")
     
     else if (file.exists(csv)) {
       assign('GDS', read.csv2(csv, na.strings = ""), envir=.GlobalEnv,  colClasses="factor");
-      ec.Save("RAW");
+      ec.save("RAW");
     }
   }
 }

@@ -154,7 +154,7 @@ ec.Rename <- function(str1, str2)
   assign('GDS', DF, envir=.GlobalEnv);
 }
 
-ec.Save <- function(name)
+ec.save <- function(name)
 {
   FName = sprintf("%s.rds", name);
   saveRDS(GDS, FName);
