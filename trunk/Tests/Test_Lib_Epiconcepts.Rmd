@@ -1,0 +1,33 @@
+# PACKAGE "EPICONCEPTS"
+
+```{r}
+library(Epiconcepts)
+ec.use("Tiramitsu", extension="df");
+
+```
+
+### fonction ec.freq()
+
+SYNTAXE :
+
+  ec.freq(x [, by=y][, where=condition])
+
+EXEMPLE :
+
+```{r results="asis"}
+ec.freq("ill");
+ec.freq("ill", by="sex");
+```
+
+Il est possible de tracer un histogramme de la fréquence.
+
+```{r results='asis'}
+res <- ec.freq("ill");
+ec.plot(res);
+ec.plot(ec.freq("ill", by="sex"));
+
+tab = table(GDS$ill, GDS$sex)
+print(xtable(tab), type="html")
+
+```
+
