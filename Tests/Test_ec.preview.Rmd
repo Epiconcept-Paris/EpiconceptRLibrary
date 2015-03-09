@@ -1,0 +1,34 @@
+# PACKAGE "EPICONCEPTS"
+
+```{r}
+library(Epiconcepts)
+ec.use("Tiramitsu", extension="df");
+
+```
+
+## fonction ec.preview()
+
+SYNTAXE :
+
+  ec.preview([nrows=5], [ncols=20], [df==NULL])
+
+EXEMPLE :
+```{r results='asis'}
+ec.preview();
+```
+### On peut demander un apercu de n lignes
+```{r results='asis'}
+ec.preview(12);
+```
+### On peut demander que les tableaux possèdent n colonnes
+```{r results='asis'}
+ec.preview(ncols=8);
+```
+
+### On peut aussi afficher la preview d'un autre dataset
+
+```{r results='asis'}
+data(mtcars)
+ec.preview(df=mtcars)
+```
+

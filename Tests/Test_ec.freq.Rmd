@@ -6,7 +6,7 @@ ec.use("Tiramitsu", extension="df");
 
 ```
 
-### fonction ec.freq()
+## fonction ec.freq()
 
 SYNTAXE :
 
@@ -18,16 +18,20 @@ EXEMPLE :
 ec.freq("ill");
 ec.freq("ill", by="sex");
 ```
+## On peut aussi poser une condition sur un ou plusieurs champs
+```{r results='asis'}
+ec.freq("ill", where=c(VAL("tira")==1));
+ec.freq("ill", where=c(VAL("tira")==1 & VAL("beer") == 1));
+ec.freq("ill", where=c(VAL("tira")==1 & VAL("beer") == 0));
+ec.freq("tira", "beer", c(VAL("ill")==1));
+```
 
-Il est possible de tracer un histogramme de la fréquence.
+## Il est possible de tracer un histogramme de la fréquence.
 
 ```{r results='asis'}
 res <- ec.freq("ill");
 ec.plot(res);
 ec.plot(ec.freq("ill", by="sex"));
-
-tab = table(GDS$ill, GDS$sex)
-print(xtable(tab), type="html")
 
 ```
 

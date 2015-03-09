@@ -3,7 +3,7 @@ library(ggplot2);
 library(plyr)
 library(maptools)
 #library(rgeos)
-library(gpclib)
+#library(gpclib)
 library(sp);
 
 setClass("ec.choropleth",
