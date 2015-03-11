@@ -1,0 +1,27 @@
+# PACKAGE "EPICONCEPTS"
+
+```{r}
+library(Epiconcepts)
+```
+
+## fonction ec.toDate()
+
+SYNTAXE :
+
+  ec.toDate(x, [format="%Y-%m-%d"])
+
+  - x : string or column;
+
+EXEMPLES : 
+```{r}
+ec.use();
+str(GDS);
+```
+### Conversion de la variable 'dateonset' en variable de type date
+```{r}
+ec.toDate("dateonset");
+str(GDS);
+ec.use();
+GDS$dateonset <- ec.toDate(GDS$dateonset);
+str(GDS);
+```
