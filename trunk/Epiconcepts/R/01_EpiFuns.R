@@ -23,7 +23,7 @@ setGeneric("Close", function(this) {
   return(standardGeneric("Close"))
 })
 
-ec.use <- function(df = "raw", extension="csv") 
+ec.use <- function(df = "RAW", extension="csv", header=TRUE, sep=";", encoding="utf8", colClasses=NA) 
 {
   if (extension == 'df') {
     data(list=c(as.name(df)), envir=.GlobalEnv);
@@ -41,7 +41,10 @@ ec.use <- function(df = "raw", extension="csv")
     }
     
     else if (file.exists(csv)) {
-      assign('GDS', read.csv2(csv, na.strings = ""), envir=.GlobalEnv,  colClasses="factor");
+      assign('GDS', read.table(csv, header=header,
+                               na.strings = "", sep=sep, encoding=encoding,
+                               colClasses=colClasses),
+             envir=.GlobalEnv);
       ec.save("RAW");
     }
   }
