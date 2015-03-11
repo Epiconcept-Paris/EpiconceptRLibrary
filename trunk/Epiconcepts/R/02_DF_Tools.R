@@ -70,6 +70,19 @@ gdsRemoveMissing <- function()
   GDS <<- na.omit(GDS);
 }
 
+# ===================================================================
+# Function: ec.toDate
+# Description : Convertit une variable en date
+# -------------------------------------------------------------------
+ec.toDate <- function(x, format="%Y-%m-%d") {
+  if (length(c(x)) > 1) {
+    return (as.Date(as.character(x), format=format))
+  }
+  DF <- get("GDS", envir=.GlobalEnv);
+  DF[, x] <- as.Date(as.character(DF[, x]), format=format);
+  assign("GDS", DF, envir=.GlobalEnv);
+}
+
 ec.recode <- function(x, where, by, gen="")
 {
   DF = get("GDS", envir=.GlobalEnv);

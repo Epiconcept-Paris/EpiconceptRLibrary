@@ -22,6 +22,7 @@ export(
   ec.variance,
   ec.summary,
   ec.tabulate,
+  ec.toDate,
   ec.xtable,
   # ======== Epidemiology
   CC,
