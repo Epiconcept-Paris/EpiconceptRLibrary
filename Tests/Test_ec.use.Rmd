@@ -2,32 +2,30 @@
 
 ```{r}
 library(Epiconcepts)
-ec.use("Tiramitsu", extension="df");
-
 ```
 
-## fonction ec.preview()
+## fonction ec.use()
 
 SYNTAXE :
 
-  ec.preview([nrows=5], [ncols=20], [df==NULL])
+  ec.use()
 
 EXEMPLE :
-```{r results='asis'}
-ec.preview();
+```{r}
+ec.use();
+str(GDS);
 ```
 ### On peut demander un apercu de n lignes
 ```{r results='asis'}
-ec.preview(12);
+
 ```
 ### On peut demander que les tableaux possèdent n colonnes
 ```{r results='asis'}
-ec.preview(ncols=8);
+
 ```
 
 ### On peut aussi afficher la preview d'un autre dataset
 
 ```{r results='asis'}
-data(mtcars)
-ec.preview(df=mtcars)
+
 ```
