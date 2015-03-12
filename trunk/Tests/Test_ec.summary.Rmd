@@ -1,0 +1,22 @@
+# PACKAGE "EPICONCEPTS"
+
+```{r}
+library(Epiconcepts)
+ec.use("Tiramitsu", extension="df");
+
+```
+
+## fonction ec.summary()
+
+SYNTAXE :
+
+  ec.summary(x [, detail=FALSE])
+
+EXEMPLE :
+```{r results='asis'}
+ec.summary("age");
+```
+### On peut demander plus de détail ...
+```{r results='asis'}
+ec.summary("age", detail=TRUE);
+```

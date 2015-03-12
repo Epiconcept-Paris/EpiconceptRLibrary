@@ -5,6 +5,14 @@ ec.codebook <- function(detail=FALSE)
   }  
 }
 
+ec.outputDF <- function(df, type="html") {
+  if (exists("OUTPUT_FORMAT")) {
+    print(xtable(df), type=type, include.rownames = F) ;
+  } else {
+    print(df);
+  }
+}
+
 ec.preview <- function(nrows=5, ncols=-1, df=NULL)
 {
   if (is.null(df)) {
@@ -33,8 +41,9 @@ ec.preview <- function(nrows=5, ncols=-1, df=NULL)
   to = from + ncols -1;
   
   for(i in 1:NITER) {
-    T <- xtable(DF[,from:to]);
-    print(T, type="html");
+    #T <- xtable(DF[,from:to]);
+    ec.outputDF(DF[,from:to]);
+    #print(T, type="html");
     from <- from + ncols;
     to = from + ncols -1;
   }
@@ -42,15 +51,17 @@ ec.preview <- function(nrows=5, ncols=-1, df=NULL)
   if (NMOD > 0) {
     if (NMOD > 1) {
       to = from + NMOD - 1;
-      T <- xtable(DF[,from:to]);
-      print(T, type="html");
+      ec.outputDF(DF[,from:to]);
+      #T <- xtable(DF[,from:to]);
+      #print(T, type="html");
     }
     else {
       cn = colnames(df)[from];
       DF2 <- as.data.frame(DF[,from]);
       colnames(DF2) <- c(cn);
-      T <- xtable(DF2);
-      print(T, type="html");
+      ec.outputDF(DF2);
+      #T <- xtable(DF2);
+      #print(T, type="html");
     }
   }
 }
