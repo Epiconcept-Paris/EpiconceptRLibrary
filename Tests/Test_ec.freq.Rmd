@@ -3,7 +3,7 @@
 ```{r}
 library(Epiconcepts)
 ec.use("Tiramitsu", extension="df");
-
+#OUTPUT_FORMAT=TRUE;
 ```
 
 ## fonction ec.freq()

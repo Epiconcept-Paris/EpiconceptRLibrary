@@ -1,0 +1,19 @@
+# PACKAGE "EPICONCEPTS"
+
+```{r}
+library(Epiconcepts)
+ec.use("Tiramitsu", extension="df");
+#OUTPUT_FORMAT=TRUE;
+```
+
+## fonction ec.codebook([detail=FALSE])
+
+SYNTAXE :
+
+  ec.codebook()
+
+EXEMPLE :
+
+```{r results="asis"}
+ec.codebook();
+```
