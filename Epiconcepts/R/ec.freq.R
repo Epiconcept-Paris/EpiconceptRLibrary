@@ -59,11 +59,18 @@ setMethod("initialize", "ec.freq",
 setMethod("show" , signature="ec.freq" ,
   function(object) {
     if (object@by == "") {
-      df <- xtable(object@df);
+      if (exists("OUTPUT_FORMAT")) {
+        print(xtable(object@df), type = "html", include.rownames = F) ;
+      } else {
+        print(object@df);
+      }
     } else {
-      df <- xtable(object@dft);
+      if (exists("OUTPUT_FORMAT")) {
+        print(xtable(object@dft), type = "html", include.rownames = F);
+      } else {
+        print(object@dft);
+      }
     }
-    print(df, type = "html", include.rownames = F);
   }
 );
 
