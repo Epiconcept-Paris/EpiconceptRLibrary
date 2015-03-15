@@ -1,0 +1,17 @@
+# PACKAGE "EPICONCEPTS"
+
+```{r}
+library(Epiconcepts)
+```
+
+## fonction CC()
+
+SYNTAXE :
+
+  CC(x, y)
+
+EXEMPLE :
+```{r}
+ec.use();
+CC("ill","tira");
+```

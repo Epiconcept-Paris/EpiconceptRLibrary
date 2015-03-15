@@ -1,0 +1,18 @@
+# PACKAGE "EPICONCEPTS"
+
+```{r}
+library(Epiconcepts)
+```
+
+## fonction CCInter()
+
+SYNTAXE :
+
+  CC(x, exposure, by)
+
+EXEMPLE :
+```{r}
+ec.use();
+ec.removeMissing();
+CCInter("ill","beer", by="tira");
+```

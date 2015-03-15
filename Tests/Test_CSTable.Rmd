@@ -1,0 +1,21 @@
+# PACKAGE "EPICONCEPTS"
+
+```{r}
+library(Epiconcepts)
+```
+
+## fonction CSTable()
+
+SYNTAXE :
+
+  CSTable(x, exposure)
+
+EXEMPLE :
+```{r}
+ec.use();
+#ec.removeMissing();
+CSTable("ill",
+        exposure = list("sex", "tira", "beer", "mousse", "wmousse", "dmousse", "redjelly",
+                        "fruitsalad", "tomato", "mince", "salmon", "horseradish",
+                        "chickenwin", "roastbeef", "pork"))
+```
