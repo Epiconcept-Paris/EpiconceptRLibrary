@@ -9,6 +9,7 @@ export(
   ec.preview,
   ec.Rename,
   ec.recode,
+  ec.removeMissing,
   ec.save,
   ec.Missing.check,
   # ======== stats

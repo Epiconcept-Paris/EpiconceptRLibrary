@@ -76,7 +76,7 @@ gdsSort <- function(by , decrease=TRUE)
   }
 }
 
-gdsRemoveMissing <- function()
+ec.removeMissing <- function()
 {
   GDS <<- na.omit(GDS);
 }

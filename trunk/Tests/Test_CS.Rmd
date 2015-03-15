@@ -1,0 +1,18 @@
+# PACKAGE "EPICONCEPTS"
+
+```{r}
+library(Epiconcepts)
+```
+
+## fonction CS()
+
+SYNTAXE :
+
+  CS(x, exposure)
+
+EXEMPLE :
+```{r}
+ec.use();
+#ec.removeMissing();
+CS("ill", "tira");
+```
