@@ -65,8 +65,9 @@ setMethod("show" ,"ec.tabulate" ,
   function(object) {
     #digits =  c(0,0,0,0,1,0,0,1,2,3,3,4);
     align  =  c("l","r","c","r","r");
-    df <- xtable(object@tabulate, align=align);
-    print(df, type = "html", include.rownames = F);
+#     df <- xtable(object@tabulate, align=align);
+#     print(df, type = "html", include.rownames = F);
+    ec.xtable(object@tabulate, align = align)
   }
 )
 
