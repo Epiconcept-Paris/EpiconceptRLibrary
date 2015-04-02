@@ -19,13 +19,13 @@ setMethod("initialize", "ec.tabulate",
   function(.Object, x, nolabel, missing)
   {
   
-  getNames <- function(x, nolabel)
-  {
-    if (nolabel == FALSE) {
-      return(names(x));
-    }
-    return(seq(0, length(names(x))-1, by=1));
-  }
+#   getNames <- function(x, nolabel)
+#   {
+#     if (nolabel == FALSE) {
+#       return(names(x));
+#     }
+#     return(seq(0, length(names(x))-1, by=1));
+#   }
   
   frequencies <- function(miss)
   {
@@ -37,19 +37,7 @@ setMethod("initialize", "ec.tabulate",
     }
     
     .freq = table(GDS[, x]);
-    #cat(sprintf("%d - %d\n", .OBS, .MIS));
-    .rel.freq <- as.numeric(sprintf("%3.2f", (.freq / .OBS) * 100));
-    .cum.rel.freq <- as.numeric(sprintf("%3.2f", cumsum(.rel.freq)));
-    L0 <- c(x, "Freq.", "Percent", "Cumul.");
-    C1 <- c(getNames(.freq, nolabel), "Total");
-    C2 <- as.vector(.freq);
-    C2 <- c(C2, sum(C2));
-    C3 <- as.vector(.rel.freq);
-    C3 <- c(C3, sum(C3));
-    C4 <- as.vector(.cum.rel.freq);
-    C4 <- c(C4, NA);
-    DF = data.frame(cbind(C1, C2, C3, C4));
-    names(DF) <- L0;
+    DF <- p.frequencies(.freq, .OBS, nolabel, x)
     DF;
   }
 
