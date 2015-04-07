@@ -1,6 +1,6 @@
 library(methods)
 
-setClass("ec.summary",
+setClass("ecr.summary",
    # ==== Inheritance
    # ==== Properties
    representation (
@@ -16,26 +16,25 @@ setClass("ec.summary",
 # ------------------------------------------------------------------------------
 # Real constructor
 # ------------------------------------------------------------------------------
-setMethod("initialize", "ec.summary",
-  function(.Object, x, detail=FALSE, ...)
+setMethod("initialize", "ecr.summary",
+  function(.Object, x, namevar="x", detail=FALSE, ...)
   {
     
-    .Object@detail = detail;
+    .Object@detail  <- detail;
+    .Object@varname <- namevar;
     
-    
-    T <- sapply(GDS, class);
-    .Object@type <- T[x];
+    .Object@type <- class(x);
     
     if (.Object@type == "factor") {
-      .Object@summary <- p.factorSummary(GDS[,x], x);
+      .Object@summary <- p.factorSummary(x, namevar);
       return(.Object);
     }
     
     if (detail == FALSE) {
-      .Object@summary <- p.simpleSummary(GDS[,x], x);
+      .Object@summary <- p.simpleSummary(x, namevar);
     }
     else {
-      .Object@summary <- p.detailSummary(GDS[,x], x);
+      .Object@summary <- p.detailSummary(x, namevar);
     }
     .Object;
   }
@@ -44,7 +43,7 @@ setMethod("initialize", "ec.summary",
 # -----------------------------------------------------------------------------
 # method show
 # -----------------------------------------------------------------------------
-setMethod("show" ,"ec.summary" ,
+setMethod("show" ,"ecr.summary" ,
   function(object) {
     
     outputDF <- function(df, type="html", digits=NULL, align=NULL) {
@@ -82,10 +81,10 @@ setMethod("show" ,"ec.summary" ,
 )
 
 # -----------------------------------------------------------------------------
-# function: ec.summary (call real constructor)
-# Return: an object of type ec.summary
+# function: ecr.summary (call real constructor)
+# Return: an object of type ecr.summary
 # -----------------------------------------------------------------------------
-ec.summary <- function(x, detail=FALSE)
+ecr.summary <- function(x, ...)
 {
-  return(new("ec.summary", x=x, detail=detail));
+  return(new("ecr.summary", x=x, ...));
 }
