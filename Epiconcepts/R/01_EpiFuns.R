@@ -112,46 +112,35 @@ ec.median <- function(x)
   return(sprintf("%5.5f",median(GDS[, x], na.rm=TRUE)));
 }
 
-ec.kurtosis <- function(x)
-{
-  if (class(GDS[, x]) == "Date") {
-    return("");
-  }
-
-  K <- kurtosis(GDS[, x], method="moment", na.rm=TRUE);
-  return(sprintf("%5.5f", K[1]));
-}
-
-gdsQuantile <- function(x)
-{
-  C = class(GDS[, x]);
-  if (C == "Date" | C == "Factor") {
-    return(c("", "", "", ""));
-  }
-  
-  Q <- quantile(GDS[, x], na.rm=TRUE);
-  return(as.vector(Q));
-}
-
-ec.sd <- function(x)
-{
-  SD = sd(GDS[, x], na.rm=TRUE)
-  return(sprintf("%5.5f", SD));
-}
-
-ec.skewness <- function(x)
-{
-  if (class(GDS[, x]) == "Date") {
-    return("");
-  }
-  S <- skewness(GDS[, x], na.rm=TRUE, method="moment");
-  return(sprintf("%5.5f", S[1]));
-}
-
-ec.variance <- function(x)
-{
-  return(sprintf("%5.5f", var(GDS[, x], na.rm=TRUE)));
-}
+# ec.kurtosis <- function(x)
+# {
+#   if (class(GDS[, x]) == "Date") {
+#     return("");
+#   }
+# 
+#   K <- kurtosis(GDS[, x], method="moment", na.rm=TRUE);
+#   return(sprintf("%5.5f", K[1]));
+# }
+# 
+# ec.sd <- function(x)
+# {
+#   SD = sd(GDS[, x], na.rm=TRUE)
+#   return(sprintf("%5.5f", SD));
+# }
+# 
+# ec.skewness <- function(x)
+# {
+#   if (class(GDS[, x]) == "Date") {
+#     return("");
+#   }
+#   S <- skewness(GDS[, x], na.rm=TRUE, method="moment");
+#   return(sprintf("%5.5f", S[1]));
+# }
+# 
+# ec.variance <- function(x)
+# {
+#   return(sprintf("%5.5f", var(GDS[, x], na.rm=TRUE)));
+# }
 
 ec.proportion <- function(c)
 {
