@@ -47,35 +47,21 @@ setMethod("initialize", "ec.summary",
 setMethod("show" ,"ec.summary" ,
   function(object) {
     
-    outputDF <- function(df, type="html", digits=NULL, align=NULL) {
-      if (exists("OUTPUT_FORMAT")) {
-        print(xtable(df, digits=digits, align=align), type=type, include.rownames = F) ;
-      } else {
-        print(df);
-      }
-    }
-
     if (object@type == "factor") {
       #digits =  c(0,0,0);
       align  =  c("l","r","c","c");
-      outputDF(object@summary, align=align);
-      #df <- xtable(object@summary,  align=align);
-      #print(df, type = "html", include.rownames = F);
+      ec.xtable(object@summary, align=align);
     }
     else {
       if (object@detail == TRUE) {
         #digits =  c(0,0,5);
         #align  =  c("l","r","c");
-        outputDF(object@summary, align=c("l","r","c"), digits=c(0,0,5));
-        #df <- xtable(object@summary, digits=digits, align=align);
-        #print(df, type = "html", include.rownames = F);
+        ec.xtable(object@summary, align=c("l","r","c"), digits=c(0,0,5));
       }
       else {
         #digits =  c(0,0,4,4,4,4,4);
         align  =  c("l","r","c","r","r","c","c");
-        outputDF(object@summary, align=align);
-        #df <- xtable(object@summary, align=align);
-        #print(df, type = "html", include.rownames = F);
+        ec.xtable(object@summary, align=align);
       }
     }
   }
