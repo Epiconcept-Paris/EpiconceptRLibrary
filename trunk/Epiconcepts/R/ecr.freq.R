@@ -1,6 +1,6 @@
 library(methods)
 
-setClass("ec.freq",
+setClass("ecr.freq",
          # ==== Inheritance
          contain = "EpiPlot",
          # ==== Properties
@@ -8,7 +8,7 @@ setClass("ec.freq",
            vardate      = "character",
            vartype      = "character",
            varcut       = "character",
-           by           = "character",
+           by           = "logical",
            df           = "data.frame",
            dft          = "data.frame",
            EPC.MAXY     = "numeric"
@@ -18,37 +18,28 @@ setClass("ec.freq",
 # ------------------------------------------------------------------------------
 # Real constructor
 # ------------------------------------------------------------------------------
-setMethod("initialize", "ec.freq",
-  function(.Object, x, by=NULL, where=NULL, caption) {
-    .Object@by <- by;
-    if (by != "") {
-      if (is.vector(where)) {
-        R = table(GDS[where, x], GDS[where, by], dnn=c(by));
-      } else {
-        R = table(VAL(x), VAL(by), dnn=c(by));
-      }
+setMethod("initialize", "ecr.freq",
+  function(.Object, x, by=NULL, ...) {
+    if (!is.null(by)) {
+    .Object@by <- T;
+      #if (by != "") {
+      R = table(x, by);
       df <- as.data.frame.matrix(R);
       cn <- colnames(df);
       df <- cbind(rownames(df), df)
       rownames(df) <- NULL;
-      colnames(df) <- c(x, cn);
+      #colnames(df) <- c(x, cn);
       .Object@dft <- df;
       df <- data.frame(R);
-      names(df) <- c(x, by, "Freq");
+      #names(df) <- c(x, by, "Freq");
       .Object@df <- df;
       return(.Object);
     }
-    if (is.vector(where)) {
-      R = data.frame(table(GDS[where, x]));
-      names(R) <- c(x, "Freq");
-      .Object@df <- R;
-      return(.Object);
-    }
-    R = data.frame(table(GDS[, x]));
-    names(R) <- c(x, "Freq");
+
+    R = data.frame(table(x));
+    names(R) <- c("x", "Freq");
     .Object@df <- R;
     return(.Object);
-
   }
 );
 # =============================================================================
@@ -56,17 +47,17 @@ setMethod("initialize", "ec.freq",
 # -----------------------------------------------------------------------------
 # method show
 # -----------------------------------------------------------------------------
-setMethod("show" , signature="ec.freq" ,
+setMethod("show" , signature="ecr.freq" ,
   function(object) {
-    if (object@by == "") {
+    if (!is.null(object@by)) {
       ec.xtable(object@df)
     } else {
-      ec.xtable(object@df)
+      ec.xtable(object@dft)
     }
   }
 );
 
-setMethod ("ec.plot" , signature="ec.freq",
+setMethod ("ec.plot" , signature="ecr.freq",
            function(this,
                     title    ="",
                     fillcolor="",
@@ -107,12 +98,12 @@ setMethod ("ec.plot" , signature="ec.freq",
            });
 
 # -----------------------------------------------------------------------------
-# function: ec.freq (call real constructor)
+# function: ecr.freq (call real constructor)
 # Return: an object of type AgePyramide
 # -----------------------------------------------------------------------------
-ec.freq <- function(x, by="", where=NULL, caption)
+ecr.freq <- function(x, by=NULL, caption)
 {
-  return(new("ec.freq", x=x, by=by, where=where, caption=caption));
+  return(new("ecr.freq", x=x, by=by, caption=caption));
 }
 
 
