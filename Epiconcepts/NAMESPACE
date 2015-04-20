@@ -34,6 +34,12 @@ export(
   CS,
   CSInter,
   CSTable,
+  rCC,
+#  rCCInter,
+#  rCCTable,
+#  rCS,
+#  rCSInter,
+#  rCSTable,
   # ======== Graphics
   Plot,
   ec.plot,
