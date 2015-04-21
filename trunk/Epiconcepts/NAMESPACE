@@ -36,7 +36,7 @@ export(
   CSTable,
   rCC,
 #  rCCInter,
-#  rCCTable,
+  rCCTable,
 #  rCS,
 #  rCSInter,
 #  rCSTable,
