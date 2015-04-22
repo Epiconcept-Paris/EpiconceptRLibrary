@@ -39,7 +39,7 @@ export(
   rCCTable,
   rCS,
 #  rCSInter,
-#  rCSTable,
+  rCSTable,
   # ======== Graphics
   Plot,
   ec.plot,
