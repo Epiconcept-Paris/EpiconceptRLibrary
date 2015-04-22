@@ -37,7 +37,7 @@ export(
   rCC,
   rCCInter,
   rCCTable,
-#  rCS,
+  rCS,
 #  rCSInter,
 #  rCSTable,
   # ======== Graphics
