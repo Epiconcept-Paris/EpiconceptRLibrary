@@ -36,15 +36,10 @@ setMethod("initialize", "rCSInter",
               stop("Exposure is empty.");
             }
             
-#             #PLabel = ifelse(exact == T, "p-value (Fisher)", "p-value (chi²)")
-#             
-#             .Object@ExposeField = exposure;
-#             
              .Col1Label = sprintf("rCSInter %s / %s", x, exposure);
-#             
              .Object@Colnames = c( .Col1Label, "Total", "Cases", "Risk %", "P.est.",
                                    "Statistics", "95%CI-L", "95%CI-H");
-#             
+
             label0 = sprintf("%s = Exposed", by);
             label1 = sprintf("%s = Unexposed", by);
             label2 = sprintf("Crude RR for %s", exposure);
@@ -102,9 +97,6 @@ setMethod("initialize", "rCSInter",
               BY1_AFECIL = sprintf("%3.2f", 1 - VBY1_RRCIH);
               BY1_AFECIH = sprintf("%3.2f", 1 - VBY1_RRCIL);
               # ==========( Prev. frac. pop )==========
-#               VAL_RT = (BY1_CE+BY1_CU)/(BY1_TO);
-#               VAL_AFP = (VAL_RT-BY1_RU)/VAL_RT;
-#               BY1_AFP = sprintf("%3.2f", VAL_AFP);
               Pe = BY1_TE / (BY1_TE + BY1_TU);
               VAL_AFP = Pe * (1 - VBY1_RR);
               BY1_AFP = sprintf("%3.2f", VAL_AFP);
@@ -112,17 +104,6 @@ setMethod("initialize", "rCSInter",
 #                               "Prev. frac. ex.", "Prev. frac. pop", "chi2(1)", "Pr>chi2")
             }
 
-#             # ARE ---------------------
-#             AFE = VBY1_RDF / BY1_RE;
-#             BY1_AFE = sprintf("%3.2f", AFE);
-#             BY1_AFECIL = sprintf("%3.2f", (VBY1_RRCIL - 1) / VBY1_RRCIL);
-#             BY1_AFECIH = sprintf("%3.2f", (VBY1_RRCIH - 1) / VBY1_RRCIH);
-# 
-#             # AFP ---------------------
-#             VAL_RT = (BY1_CE+BY1_CU)/(BY1_TO);
-#             VAL_AFP = (VAL_RT-BY1_RU)/VAL_RT;
-#             BY1_AFP = sprintf("%3.2f", VAL_AFP);
-            
             # ==== by = 0
             VALBY <- df[,by] == 0;
             T2 = table(df[VALBY, exposure], df[VALBY, x])
