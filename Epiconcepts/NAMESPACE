@@ -38,7 +38,7 @@ export(
   rCCInter,
   rCCTable,
   rCS,
-#  rCSInter,
+  rCSInter,
   rCSTable,
   # ======== Graphics
   Plot,

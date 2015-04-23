@@ -105,7 +105,7 @@ setMethod("initialize", "rCCInter",
               
             }
             
-            T <- table(GDS[,x], GDS[,exposure], GDS[,by]);
+            T <- table(df[,x], df[,exposure], df[,by]);
             R <- CC_STATS(T);
             #print(R)
 
@@ -115,8 +115,8 @@ setMethod("initialize", "rCCInter",
             
             # MISSING
             # ------------------------------------------------------------
-            MIS_TO = nrow(GDS) - NB_TOTAL;
-            MIS_PC = sprintf("%3.2f%s", (MIS_TO / nrow(GDS))*100, '%');
+            MIS_TO = nrow(df) - NB_TOTAL;
+            MIS_PC = sprintf("%3.2f%s", (MIS_TO / nrow(df))*100, '%');
             L_CASES = c(L_CASES, MIS_TO);
 
             # MH test of Homogeneity pvalue
