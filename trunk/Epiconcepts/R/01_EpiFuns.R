@@ -57,30 +57,30 @@ VAL <- function(varname)
   return(GDS[,varname]);
 }
 
-freq <- function(x, by=NULL, where=NULL)
-{
-  if (is.character(by)) {
-    if (is.vector(where)) {
-      #R = data.frame(table(GDS[where, x], GDS[where, by]));
-      R = table(GDS[where, x], GDS[where, by]);
-      return(R)
-      names(R) <- c(x, by, "Freq");
-      return(R);
-    }
-    #R = data.frame(table(VAL(x), VAL(by)));
-    R = table(VAL(x), VAL(by));
-    #names(R) <- c(x, by, "Freq");
-    return(R);
-  }
-  if (is.vector(where)) {
-    R = data.frame(table(GDS[where, x]));
-    names(R) <- c(x, "Freq");
-    return(R);
-  }
-  R = data.frame(table(GDS[, x]));
-  names(R) <- c(x, "Freq");
-  return(R);
-}
+# freq <- function(x, by=NULL, where=NULL)
+# {
+#   if (is.character(by)) {
+#     if (is.vector(where)) {
+#       #R = data.frame(table(GDS[where, x], GDS[where, by]));
+#       R = table(GDS[where, x], GDS[where, by]);
+#       return(R)
+#       names(R) <- c(x, by, "Freq");
+#       return(R);
+#     }
+#     #R = data.frame(table(VAL(x), VAL(by)));
+#     R = table(VAL(x), VAL(by));
+#     #names(R) <- c(x, by, "Freq");
+#     return(R);
+#   }
+#   if (is.vector(where)) {
+#     R = data.frame(table(GDS[where, x]));
+#     names(R) <- c(x, "Freq");
+#     return(R);
+#   }
+#   R = data.frame(table(GDS[, x]));
+#   names(R) <- c(x, "Freq");
+#   return(R);
+# }
 
 ec.max <- function(x)
 {
@@ -112,80 +112,15 @@ ec.median <- function(x)
   return(sprintf("%5.5f",median(GDS[, x], na.rm=TRUE)));
 }
 
-# ec.kurtosis <- function(x)
-# {
-#   if (class(GDS[, x]) == "Date") {
-#     return("");
-#   }
-# 
-#   K <- kurtosis(GDS[, x], method="moment", na.rm=TRUE);
-#   return(sprintf("%5.5f", K[1]));
-# }
-# 
-# ec.sd <- function(x)
-# {
-#   SD = sd(GDS[, x], na.rm=TRUE)
-#   return(sprintf("%5.5f", SD));
-# }
-# 
-# ec.skewness <- function(x)
-# {
-#   if (class(GDS[, x]) == "Date") {
-#     return("");
-#   }
-#   S <- skewness(GDS[, x], na.rm=TRUE, method="moment");
-#   return(sprintf("%5.5f", S[1]));
-# }
-# 
-# ec.variance <- function(x)
-# {
-#   return(sprintf("%5.5f", var(GDS[, x], na.rm=TRUE)));
-# }
 
 ec.proportion <- function(c)
 {
-#  library(boot);
-  set.seed(123)
-  x<-GDS[,c]
-  N_ = nrow(GDS);
-  
-  myprop<-function(x,i){
-    sum(x[i]==0)/length(x)
-  }
-  
-  B <- boot(x, myprop, 100);
-  SD_ = sprintf("%5.6f", sd(B$t));
-  T = table(x);
-  NAMES_ = names(T)
-  M1_ = T[1];
-  M2_ = T[2];
-  NDF = c(c, "Obs.","Proportion", "Std. Err.", "95% CI.Low", "95% CI.Low");
 
-  P = prop.test(M1_, N_, conf.level=0.95);
-  PE1_ = P$estimate;
-  CI1_LOW = P$conf.int[1];
-  CI1_HIG = P$conf.int[2];
+  DF <- p.proportion(GDS[,c], c)
   
-  P = prop.test(M2_, N_, conf.level=0.95);
-  PE2_ = P$estimate;
-  CI2_LOW = P$conf.int[1];
-  CI2_HIG = P$conf.int[2];
-  
-  R1 = c(NAMES_[1], M1_, PE1_, SD_, CI1_LOW, CI1_HIG);
-  R2 = c(NAMES_[2], M2_, PE2_, SD_, CI2_LOW, CI2_HIG);
-  
-#  DF = data.frame(rbind("1"=R1, "2"=R2));
-  DF = data.frame(cbind(NAMES_));
-  DF = cbind(DF, as.numeric(c(M1_,M2_)));
-  DF = cbind(DF, as.numeric(c(PE1_,PE2_)));
-  DF = cbind(DF, as.numeric(c(SD_,SD_)));
-  DF = cbind(DF, as.numeric(c(CI1_LOW,CI2_LOW)));
-  DF = cbind(DF, as.numeric(c(CI1_HIG,CI2_HIG)));
-  names(DF) <- NDF;
   digits =  c(0,0,0,4,4,5,5);
   align  =  c("l","c","c","r","r","r","r");
-  odf <- xtable(DF, digits=digits, align=align);
-  print(odf, type = "html", include.rownames = F);
+  ec.xtable(DF, digits=digits, align=align)
 }
 
 

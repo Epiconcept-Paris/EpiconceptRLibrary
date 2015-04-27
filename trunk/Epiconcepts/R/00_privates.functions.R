@@ -117,5 +117,49 @@ p.factorSummary <- function(x, namevar)
   return(DF);
 }
 
+p.proportion <- function(x, label)
+{
+  set.seed(123)
 
+  myprop<-function(x,i){
+    sum(x[i]==0)/length(x)
+  }
+
+  lab <- label
+  N_ = length(x)
+  
+  B <- boot(x, myprop, 100);
+  SD_ = sprintf("%5.6f", sd(B$t));
+  T = table(x);
+  NAMES_ = names(T)
+  M1_ = T[1];
+  M2_ = T[2];
+  NDF = c(lab, "Obs.","Proportion", "Std. Err.", "95% CI.Low", "95% CI.Low");
+  
+  P = prop.test(M1_, N_, conf.level=0.95);
+  PE1_ = P$estimate;
+  CI1_LOW = P$conf.int[1];
+  CI1_HIG = P$conf.int[2];
+  
+  P = prop.test(M2_, N_, conf.level=0.95);
+  PE2_ = P$estimate;
+  CI2_LOW = P$conf.int[1];
+  CI2_HIG = P$conf.int[2];
+  
+  R1 = c(NAMES_[1], M1_, PE1_, SD_, CI1_LOW, CI1_HIG);
+  R2 = c(NAMES_[2], M2_, PE2_, SD_, CI2_LOW, CI2_HIG);
+  
+  #  DF = data.frame(rbind("1"=R1, "2"=R2));
+  DF = data.frame(cbind(NAMES_));
+  DF = cbind(DF, as.numeric(c(M1_,M2_)));
+  DF = cbind(DF, as.numeric(c(PE1_,PE2_)));
+  DF = cbind(DF, as.numeric(c(SD_,SD_)));
+  DF = cbind(DF, as.numeric(c(CI1_LOW,CI2_LOW)));
+  DF = cbind(DF, as.numeric(c(CI1_HIG,CI2_HIG)));
+  names(DF) <- NDF;
+  DF
+#   digits =  c(0,0,0,4,4,5,5);
+#   align  =  c("l","c","c","r","r","r","r");
+#   ec.xtable(DF, digits=digits, align=align)  
+}
 

@@ -23,6 +23,7 @@ export(
   ec.summary,
   ec.tabulate,
   ecr.freq,
+  ecr.proportion,
   ecr.summary,
   ecr.tabulate,
   ec.toDate,
