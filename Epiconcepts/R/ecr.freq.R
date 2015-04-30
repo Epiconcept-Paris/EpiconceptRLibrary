@@ -11,6 +11,7 @@ setClass("ecr.freq",
            by           = "logical",
            df           = "data.frame",
            dft          = "data.frame",
+           percent      = "numeric",
            EPC.MAXY     = "numeric"
          )           
 );
@@ -20,10 +21,18 @@ setClass("ecr.freq",
 # ------------------------------------------------------------------------------
 setMethod("initialize", "ecr.freq",
   function(.Object, x, by=NULL, ...) {
+    
+    percent <- function(R) {
+      P = prop.table(R) * 100
+      d <- as.data.frame(P);
+      d$Freq
+    }
+    
     if (!is.null(by)) {
     .Object@by <- T;
       #if (by != "") {
       R = table(x, by);
+      .Object@percent <- p.percent(R)
       df <- as.data.frame.matrix(R);
       cn <- colnames(df);
       df <- cbind(rownames(df), df)
@@ -31,15 +40,26 @@ setMethod("initialize", "ecr.freq",
       #colnames(df) <- c(x, cn);
       .Object@dft <- df;
       df <- data.frame(R);
-      #names(df) <- c(x, by, "Freq");
+      df <- cbind(df, .Object@percent);
+      names(df) <- c("x", "by", "Freq", "%");
       .Object@df <- df;
       return(.Object);
     }
 
-    R = data.frame(table(x));
-    names(R) <- c("x", "Freq");
-    .Object@df <- R;
+    # Cas une seule variable
+    # ------------------------------------------------
+    Tab <- table(x);
+    df  <- data.frame(Tab);
+    .Object@percent <- p.percent(Tab)
+    df <- cbind(df, .Object@percent)
+    names(df) <- c("x", "Freq", "%");
+    .Object@df <- df;
     return(.Object);
+    
+#     R = data.frame(table(x));
+#     names(R) <- c("x", "Freq");
+#     .Object@df <- R;
+#     return(.Object);
   }
 );
 # =============================================================================
