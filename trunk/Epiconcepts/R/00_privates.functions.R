@@ -163,3 +163,9 @@ p.proportion <- function(x, label)
 #   ec.xtable(DF, digits=digits, align=align)  
 }
 
+p.percent <- function(R) {
+  P = prop.table(R) * 100
+  d <- as.data.frame(P);
+  d$Freq
+}
+

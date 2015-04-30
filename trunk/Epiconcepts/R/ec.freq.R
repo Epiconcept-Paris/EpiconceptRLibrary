@@ -11,6 +11,7 @@ setClass("ec.freq",
            by           = "character",
            df           = "data.frame",
            dft          = "data.frame",
+           percent      = "numeric",
            EPC.MAXY     = "numeric"
          )           
 );
@@ -27,6 +28,9 @@ setMethod("initialize", "ec.freq",
       } else {
         R = table(VAL(x), VAL(by), dnn=c(by));
       }
+      
+      .Object@percent <- p.percent(R)
+      
       df <- as.data.frame.matrix(R);
       cn <- colnames(df);
       df <- cbind(rownames(df), df)
@@ -34,21 +38,33 @@ setMethod("initialize", "ec.freq",
       colnames(df) <- c(x, cn);
       .Object@dft <- df;
       df <- data.frame(R);
-      names(df) <- c(x, by, "Freq");
+      df <- cbind(df, .Object@percent)
+      names(df) <- c(x, by, "Freq","%");
       .Object@df <- df;
       return(.Object);
     }
+    
+    # Cas une seule variable et une clause where
+    # ------------------------------------------------
     if (is.vector(where)) {
-      R = data.frame(table(GDS[where, x]));
-      names(R) <- c(x, "Freq");
-      .Object@df <- R;
+      Tab <- table(GDS[where, x]);
+      df = data.frame(Tab);
+      .Object@percent <- p.percent(Tab)
+      df <- cbind(df, .Object@percent)
+      names(df) <- c(x, "Freq", "%");
+      .Object@df <- df;
       return(.Object);
     }
-    R = data.frame(table(GDS[, x]));
-    names(R) <- c(x, "Freq");
-    .Object@df <- R;
+    
+    # Cas une seule variable
+    # ------------------------------------------------
+    Tab <- table(GDS[, x]);
+    df  <- data.frame(Tab);
+    .Object@percent <- p.percent(Tab)
+    df <- cbind(df, .Object@percent)
+    names(df) <- c(x, "Freq", "%");
+    .Object@df <- df;
     return(.Object);
-
   }
 );
 # =============================================================================
