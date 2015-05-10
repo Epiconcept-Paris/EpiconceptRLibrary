@@ -1,6 +1,6 @@
 library(methods)
 
-setClass("ec.pie",
+setClass("ecr.pie",
   # ==== Inheritance
   contain = "EpiPlot",
   # ==== Properties
@@ -16,33 +16,35 @@ setClass("ec.pie",
 # ------------------------------------------------------------------------------
 # Constructor
 # ------------------------------------------------------------------------------
-setMethod("initialize", 
-  "ec.pie",
-  function(.Object, x, y="") {
-    .Object@varname = x;
-    .Object@varpart = y;
+setMethod("initialize", "ecr.pie",
+  function(.Object, df, x, y="") {
+     .Object@varname = x;
+     .Object@varpart = y;
+    
     
     #GDS <- get("GDS", envir=Eec.pienv);
     
-    V1 = eval(parse(text = paste('GDS', x, sep='$')));
+#    V1 = eval(parse(text = paste('GDS', x, sep='$')));
+    V1 = df[,x];
     if (y == "") {
       .Object@wtable = table(V1);
       .Object@WDS = data.frame(.Object@wtable);
       colnames(.Object@WDS)[1] <- x;
     } else {
-      #.Object@varpart = y;
-      V2 = eval(parse(text = paste('GDS', y, sep='$')));
+      .Object@varpart = y;
+#       V2 = eval(parse(text = paste('GDS', y, sep='$')));
+      V2 = df[,y];
       .Object@WDS = ddply(GDS, .(V2), function(d) {
-        V1 = eval(parse(text = paste('d', x, sep='$')));
+       V1 = eval(parse(text = paste('d', x, sep='$')));
         data.frame(table(V1)/length(V1)*100)
       })
-      colnames(.Object@WDS)[1] <- y;
-      colnames(.Object@WDS)[2] <- x;
+       colnames(.Object@WDS)[1] <- y;
+       colnames(.Object@WDS)[2] <- x;
     }
     .Object
 })
 
-setMethod ("ec.plot" , signature="ec.pie",
+setMethod ("ec.plot" , signature="ecr.pie",
   function(this,
            title="",
            legendtitle="",
@@ -66,7 +68,7 @@ setMethod ("ec.plot" , signature="ec.pie",
     Draw <- function(O) {
       Factor <- this@varname;
       # A ec.pie chart is a stacked bar chart + polar coordinates
-      P_ <- ggplot(this@WDS, aes_string(x = factor(1), y = "Freq", fill = Factor))
+       P_ <- ggplot(this@WDS, aes_string(x = factor(1), y = "Freq", fill = Factor))
       P_ <- P_ + geom_bar(width = 1, stat = "identity", colour="black");
       P_ <- P_ + coord_polar(theta = "y");
       if (this@G_TITLE != "_AUTO_") P_ <- P_ + ggtitle(this@G_TITLE);
@@ -90,7 +92,7 @@ setGeneric("Table", function(this, ...) {
   return(standardGeneric("Table"))
 })
 
-setMethod ("Table" , signature="ec.pie",
+setMethod ("Table" , signature="ecr.pie",
            function(this, fname="F_NONE") {
              print(this@wtable);
              if (fname != "F_NONE") {
@@ -102,8 +104,8 @@ setMethod ("Table" , signature="ec.pie",
 # function: constructor
 # Return: an object of type ec.pie
 # -----------------------------------------------------------------------------
-ec.pie <- function(x, y="") {
-  return(new("ec.pie", x=x, y=y))
+ecr.pie <- function(df, x, y="") {
+  return(new("ecr.pie", df, x=x, y=y))
 }
 
           

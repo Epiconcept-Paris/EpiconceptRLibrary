@@ -47,7 +47,9 @@ export(
   ec.histogram,
   ec.agePyramid,
   ec.epiCurve,
-  ec.pie
+  ec.pie,
+  ecr.histogram,
+  ecr.pie
 )
 
 #exportClasses(

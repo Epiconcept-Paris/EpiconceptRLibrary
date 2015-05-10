@@ -1,6 +1,6 @@
 library(methods)
 
-setClass("ec.histogram",
+setClass("ecr.histogram",
          # ==== Inheritance
          contain = "EpiPlot",
          # ==== Properties
@@ -9,7 +9,8 @@ setClass("ec.histogram",
            varpart  = "character",
            discrete = "logical",
            start    = "numeric",
-           binwidth = "numeric"
+           binwidth = "numeric",
+           df = "data.frame"
          )           
 )
 
@@ -17,8 +18,9 @@ setClass("ec.histogram",
 # Constructor
 # ------------------------------------------------------------------------------
 setMethod("initialize", 
-          "ec.histogram",
-          function(.Object, x, by="", discrete=FALSE, start=Inf, binwidth=0) {
+          "ecr.histogram",
+          function(.Object, df, x, by="", discrete=FALSE, start=Inf, binwidth=0) {
+            .Object@df = df;
             .Object@varname = x;
             .Object@varpart = by;
             .Object@discrete = discrete;
@@ -28,7 +30,7 @@ setMethod("initialize",
           })
 
 
-setMethod ("ec.plot" , signature="ec.histogram",
+setMethod ("ec.plot" , signature="ecr.histogram",
            function(this,
                     title    ="",
                     fillcolor="",
@@ -50,8 +52,9 @@ setMethod ("ec.plot" , signature="ec.histogram",
              # Effective drawing
              # -------------------------------------------------------------------------    
              Draw <- function(O) {
-               P_ <- ggplot(GDS, aes_string(x = this@varname));
-               if (is.numeric(VAL(this@varname))) {
+               df <- this@df;
+               P_ <- ggplot(df, aes_string(x = this@varname));
+               if (is.numeric(this@varname)) {
                  if (this@discrete == TRUE) {
                    P_ <- P_ + geom_histogram(binwidth=1, colour="black", fill=this@G_FILLCOLOR,na.action=na.exclude);
                    min = ifelse (this@start != Inf, this@start, ec.min(this@varname));
@@ -59,7 +62,7 @@ setMethod ("ec.plot" , signature="ec.histogram",
                    by = 2^floor(log10(to - min));
                    P_ <- P_ + scale_x_discrete(limits=seq(from=min, to=to, by=by));
                  } else {
-                    P_ <- P_ + geom_histogram(binwidth=this@binwidth, colour="black", fill=this@G_FILLCOLOR,na.action=na.exclude);
+                   P_ <- P_ + geom_histogram(binwidth=this@binwidth, colour="black", fill=this@G_FILLCOLOR,na.action=na.exclude);
                  }
                }
                else {
@@ -86,7 +89,7 @@ setGeneric("Table", function(this, ...) {
   return(standardGeneric("Table"))
 })
 
-setMethod ("Table" , signature="ec.histogram",
+setMethod ("Table" , signature="ecr.histogram",
            function(this, fname="F_NONE") {
              print(this@wtable);
              if (fname != "F_NONE") {
@@ -98,6 +101,6 @@ setMethod ("Table" , signature="ec.histogram",
 # function: constructor
 # Return: an object of type ec.histogram
 # -----------------------------------------------------------------------------
-ec.histogram <- function(x, by="", discrete=FALSE, start=Inf, binwidth=0) {
-  return(new("ec.histogram", x=x, by=by, discrete=discrete, start=start, binwidth=binwidth))
+ecr.histogram <- function(df, x, by="", discrete=FALSE, start=Inf, binwidth=0) {
+  return(new("ecr.histogram", df=df, x=x, by=by, discrete=discrete, start=start, binwidth=binwidth))
 }
