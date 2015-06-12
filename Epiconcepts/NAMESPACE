@@ -15,6 +15,7 @@ export(
   # ======== stats
   ec.codebook,
   ec.freq,
+  ec.logistic,
   ec.max,
   ec.mean,
   ec.median,
