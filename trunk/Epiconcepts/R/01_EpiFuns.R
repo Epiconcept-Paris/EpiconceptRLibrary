@@ -10,6 +10,8 @@ library(methods)
 require(boot)
 require(jsonlite)
 library(fBasics)
+library(Hmisc)
+library(fmsb)
 
 setGeneric("Plot", function(this, ...) {
   return(standardGeneric("Plot"))
@@ -156,6 +158,24 @@ rr <- function(Tb)
   return(c(RR, RRCIL, RRCIH))
 }
 
+rr2 <- function(Tb)
+{
+  TE = Tb[2,1]+Tb[2,2];
+  TU = Tb[1,1]+Tb[1,2];
+  CE = Tb[2,2];
+  CU = Tb[1,2];
+  TO = TE + TU;
+
+#   X   The number of disease occurence among exposed cohort.
+#   Y	  The number of disease occurence among non-exposed cohort.
+#   m1  The number of individuals in exposed cohort group.
+#   m2  The number of individuals in non-exposed cohort group.
+#   conf.level  Probability for confidence intervals. Default is 0.95.
+
+  R <- riskratio(CE, CU, TE, TU, conf.level=0.95)
+  return(c(R$estimate, R$conf.int[1], R$conf.int[2]))
+}
+
 # ========================================================================
 # CASES CONTROLS STUDY
 # ========================================================================
@@ -180,15 +200,22 @@ CC_AR <- function(C)
 
 CC_PAR <- function(C)
 {
-  T = epi.2by2(dat=C, method="case.control", outcome="as.columns");
-  S <- summary(T);
+  .T = epi.2by2(dat=C, method="case.control", outcome="as.columns");
+  S <- summary(.T);
   return(S$AFp[1]);
 }
 
 CC_STATS <- function(C)
 {
-  T = epi.2by2(dat=C, method="case.control", outcome="as.columns", homogeneity="woolf");
-  S <- summary(T);
+  .T = epi.2by2(dat=C, method="case.control", outcome="as.columns", homogeneity="woolf");
+  S <- summary(.T);
+  return(S);
+}
+
+CS_STATS <- function(C)
+{
+  .T = epi.2by2(dat=C, method="cohort.count", outcome="as.columns");
+  S <- summary(.T);
   return(S);
 }
 
@@ -220,6 +247,49 @@ computeDiffRiskCI <- function(RE, RU, NE, NU)
   R2 = A - D;
   
   return(c(R2, R1));
+}
+
+GetStrateVector <- function(A) {
+  CE = A[2,2]    ; # Cases exposed
+  CU = A[1,2]    ; # Cases unexposed
+  HE = A[2,1]    ; # Healthy exposed
+  HU = A[1,1]    ; # Healthy unexposed
+
+  TE = CE + HE   ; # Total exposed
+  TU = CU + HU   ; # Total unexposed
+  TS = TE + TU   ; # Total strate
+  H  = HU + HE   ; # Total healthy
+  C  = CU + CE   ; # Total cases
+  
+  c(CE, CU, HE, HU, TE, TU, TS, H, C)
+}
+
+MANTEL_RR <- function(M) {
+  colnames(M) <- c("CE", "CU", "HE", "HU", "TE", "TU", "TS", "H", "C")
+  df <- data.frame(M)
+  
+  R1 = sum((df$CE * df$TU) / df$TS)
+  R2 = sum((df$CU * df$TE) / df$TS)
+  rrmh = R1 / R2
+  
+  R <- vector()
+  for(I in 1:nrow(df)) {
+    d2 = df[I, "TS"]^2
+    V = ((df[I,"C"]*df[I,"TE"]*df[I,"TU"]) - (df[I,"CE"]*df[I,"CU"]*df[I,"TS"])) / d2
+    R <- c(R, V)
+  }
+  
+  NUMER = sum(R)
+  DENOM = R1 * R2
+  RES = sqrt(NUMER / DENOM)
+
+  L = log(rrmh) - (1.96 * RES);
+  H = log(rrmh) + (1.96 * RES);
+    
+  CIL = exp(L);
+  CIH = exp(H);
+
+  c(rrmh, CIL, CIH)  
 }
 
 CMHrr <- function(A, B)
@@ -271,7 +341,7 @@ CMHrr <- function(A, B)
 
 MH_HomogeneityTest <- function(mht)
 {
-  T = epi.2by2(dat=mht, homogeneity="breslow.day");
+  T = epi.2by2(dat=mht, homogeneity="woolf");
   S <- summary(T);
   return(c(S$RR.homog[1], S$RR.homog[3]));
 }
