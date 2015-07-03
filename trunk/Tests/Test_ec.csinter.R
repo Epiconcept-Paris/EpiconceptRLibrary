@@ -1,0 +1,7 @@
+library(Epiconcepts)
+library(Hmisc)
+ec.use()
+Tabac <- floor(runif(291, 0, 3))
+GDS$Tabac <- factor(Tabac, labels = c("ne fume pas", "moins de 10/J", "plus de 10/j"))
+#CSInter("ill", "beer", "tira")
+ec.csinter("ill","beer", by="Tabac")
