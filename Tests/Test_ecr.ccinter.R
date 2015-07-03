@@ -1,0 +1,10 @@
+library(Epiconcepts)
+#library(Hmisc)
+ec.use("Tiramitsu",extension = "df")
+Tabac <- floor(runif(291, 0, 3))
+GDS$Tabac <- factor(Tabac, labels = c("ne fume pas", "moins de 10/J", "plus de 10/j"))
+testDF <- GDS
+rm(GDS)
+#CSInter("ill", "beer", "tira")
+#ec.ccinter("ill","beer", by="Tabac")
+ecr.ccinter(testDF, "ill","beer", by="Tabac")
