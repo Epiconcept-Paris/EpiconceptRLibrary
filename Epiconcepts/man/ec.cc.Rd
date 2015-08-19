@@ -1,8 +1,8 @@
-\name{CC}
-\alias{CC}
+\name{ec.cc}
+\alias{ec.cc}
 %- Also NEED an '\alias' for EACH other topic documented here.
 
-\title{Epidemiology : Tables for epidemiologists - Case-control odds ratio}
+\title{EPIDEMIOLOGY : Tables for epidemiologists - Case-control odds ratio}
 
 \description{
 cc is used with case-control and cross-sectional data.  Point estimates
@@ -10,7 +10,7 @@ cc is used with case-control and cross-sectional data.  Point estimates
     attributable or prevented fractions for the exposed and total population.}
 
 \usage{
-CC(x, exposure = "", exact = FALSE, where = vector(), title = "")
+ec.cc(x, exposure = "", exact = FALSE, where = vector(), title = "")
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -28,8 +28,8 @@ CC(x, exposure = "", exact = FALSE, where = vector(), title = "")
 
 
 \examples{
-ec.Use("Tiramitsu", "df");
-CC("ill", "tira");
+ec.use("Tiramitsu", "df");
+ec.cc("ill", "tira");
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
