@@ -169,14 +169,6 @@ ec.move <- function(tomove, where = "last", target = NULL) {
   assign('GDS', x, envir=.GlobalEnv)
 }
 
-# ---- Rename a column of GDS
-# --------------------------------------------------------
-ec.Rename <- function(str1, str2)
-{
-  DF <- get("GDS", envir=.GlobalEnv);
-  names(DF) <- sub(str1, str2, names(DF))
-  assign('GDS', DF, envir=.GlobalEnv);
-}
 
 ec.save <- function(name)
 {

@@ -1,35 +1,33 @@
-\name{ec.max}
-\alias{ec.max}
+\name{ec.rename}
+\alias{ec.rename}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Descriptive Statistiques : Maxima
+DataFrame Tools : Rename a column
 }
-\description{
-Return the max value of a column/variable of the Global Dataset (GDS)
-}
+\description{ Rename a column of the Global Dataset (GDS) }
 \usage{
-ec.max(x)
+ec.rename(colname, newname)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{x}{- STRING - the column/variable name}
+  \item{colname}{- STRING - the column/variable name}
+  \item{newname}{- STRING - the new column/variable name}
 }
 
-
 \value{
-the max value
+A data.frame with the column renamed
 }
 
 \author{jp.decorps@epiconcept.fr}
 
 \note{
-Missing values are removed
+Memory consumption?
 }
 
 \examples{
 # == Dataframe is loaded with data()
-ec.Use("Tiramitsu", "df");
-ec.rename('age');
+ec.use("Tiramitsu", "df");
+ec.rename('age','Age');
 }
 % Add one or more standard keywords, see file 'KEYWORDS' in the
 % R documentation directory.
