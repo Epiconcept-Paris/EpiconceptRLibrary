@@ -1,6 +1,6 @@
 library(methods)
 
-setClass("CC",
+setClass("ec.cc",
          # ==== Inheritance
          # ==== Properties
          representation (
@@ -27,7 +27,7 @@ setClass("CC",
 # ------------------------------------------------------------------------------
 # Real constructor
 # ------------------------------------------------------------------------------
-setMethod("initialize", "CC",
+setMethod("initialize", "ec.cc",
   function(.Object, x, exposure="", exact, where, title)
   {
     
@@ -40,7 +40,7 @@ setMethod("initialize", "CC",
     PLabel = ifelse(exact == T, "p-value (Fisher)", "p-value (chi2)")
             
     .Object@ExposeField = exposure;
-    .Col1Label = ifelse(title=="", sprintf("CC %s %s", x, exposure), title);
+    .Col1Label = ifelse(title=="", sprintf("ec.cc %s %s", x, exposure), title);
     .Object@Colnames = c( .Col1Label, "Exposed", "Unexposed", "Total", "Proportion Exp.");
     .Col1Values = c("Cases", "Controls", "Total", "", "", "Odds ratio",
                     "Attr. frac. ex.", "Attr. frac. pop", "chi2(1)", "Pr>chi2")
@@ -127,7 +127,7 @@ setMethod("initialize", "CC",
 # -----------------------------------------------------------------------------
 # method show
 # -----------------------------------------------------------------------------
-setMethod("show" ,"CC" ,
+setMethod("show" ,"ec.cc" ,
   function(object){
     align  =  c("l","r","r","r","r","r");
     ec.xtable(object@CC, align=align);
@@ -135,10 +135,10 @@ setMethod("show" ,"CC" ,
 )
 
 # -----------------------------------------------------------------------------
-# function: CC (call real constructor)
-# Return: an object of type CC
+# function: ec.cc (call real constructor)
+# Return: an object of type ec.cc
 # -----------------------------------------------------------------------------
-CC <- function(x, exposure="", exact=FALSE, where=vector(), title="")
+ec.cc <- function(x, exposure="", exact=FALSE, where=vector(), title="")
 {
-  return(new("CC", x=x, exposure=exposure, exact=exact, where=where, title=title));
+  return(new("ec.cc", x=x, exposure=exposure, exact=exact, where=where, title=title));
 }
