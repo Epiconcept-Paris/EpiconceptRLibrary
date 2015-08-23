@@ -149,10 +149,13 @@ gdsLabelToLevel <- function(x)
   }
 }
 
-# ---- Move a column of GDS
+# ---- Move a column of GDS or other data.frame
 # --------------------------------------------------------
-ec.move <- function(tomove, where = "last", target = NULL) {
-  data = get("GDS", envir=.GlobalEnv);
+ec.move <- function(tomove, where = "last", target = NULL, df=FALSE) {
+  data = df
+  if (is.logical(df)) {
+    data = get("GDS", envir=.GlobalEnv);
+  }
   temp <- setdiff(names(data), tomove)
   x <- switch(
     where,
@@ -166,7 +169,10 @@ ec.move <- function(tomove, where = "last", target = NULL) {
       #if (is.null(ba)) stop("must specify ba column")
       data[append(temp, values = tomove, after = (match(target, temp)))]
     })
-  assign('GDS', x, envir=.GlobalEnv)
+  if (is.logical(df)) {
+    assign('GDS', x, envir=.GlobalEnv)
+  }
+  x
 }
 
 
