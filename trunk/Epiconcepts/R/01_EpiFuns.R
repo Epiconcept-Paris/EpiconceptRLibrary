@@ -11,7 +11,7 @@ require(boot)
 require(jsonlite)
 library(fBasics)
 library(Hmisc)
-library(fmsb)
+#library(fmsb)
 
 setGeneric("Plot", function(this, ...) {
   return(standardGeneric("Plot"))
@@ -106,12 +106,12 @@ ec.min <- function(x)
 
 ec.mean <- function(x)
 {
-  return(sprintf("%5.5f", mean(GDS[, x], na.rm=TRUE)));
+  return(mean(GDS[, x], na.rm=TRUE));
 }
 
 ec.median <- function(x)
 {
-  return(sprintf("%5.5f",median(GDS[, x], na.rm=TRUE)));
+  return(median(GDS[, x], na.rm=TRUE));
 }
 
 
