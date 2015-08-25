@@ -181,10 +181,10 @@ rr2 <- function(Tb)
 # ========================================================================
 # Comppute ODDS ratio
 # -------------------
-or <- function(T)
+or <- function(.T)
 {
-  O <- (T[2,2]/T[2,1]) / (T[1,2]/T[1,1]);
-  x <- matrix(T, 2, byrow = TRUE);
+  O <- (.T[2,2]/.T[2,1]) / (.T[1,2]/.T[1,1]);
+  x <- matrix(.T, 2, byrow = TRUE);
   R <- fisher.test(x);
   CIL <- R$conf.int[1];
   CIH <- R$conf.int[2];
