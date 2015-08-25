@@ -55,6 +55,12 @@ setMethod("initialize", "ec.ccinter",
               c("Odds Ratio", "Attrib.risk.exp", "Attrib.risk.pop", "", "","");
             }
             
+            getCrudeOR <- function() {
+              df <- GDS[!is.na(GDS[x]) & !is.na(GDS[exposure]) & !is.na(GDS[by]), c(x, exposure)]
+              .T <- table(df[,x], df[,exposure])
+              .r = or(.T)
+              .r
+            }
             # Loop on all levels of 'by' (strates)
             # -----------------------------------------------------------------
             getOddsStats <- function() {
@@ -132,9 +138,10 @@ setMethod("initialize", "ec.ccinter",
               
               # Crude OR for exposure
               # ------------------------------------------------------------
-              STAT = sprintf("%3.2f", R$OR.crude[1]);
-              CIL = sprintf("%3.2f", R$OR.crude[3]);
-              CIH = sprintf("%3.2f", R$OR.crude[4]);
+              .ror <- getCrudeOR()
+              STAT = sprintf("%3.2f", .ror[1])
+              CIL = sprintf("%3.2f",  .ror[2])
+              CIH = sprintf("%3.2f",  .ror[3])
               L_STATS <- c(L_STATS, STAT);
               L_CIL = c(L_CIL, "", "", "", CIL);
               L_CIH = c(L_CIH, "", "", "", CIH);
@@ -144,6 +151,7 @@ setMethod("initialize", "ec.ccinter",
               STAT = sprintf("%3.2f", R$OR.mh[1]);
               CIL = sprintf("%3.2f", R$OR.mh[3]);
               CIH = sprintf("%3.2f", R$OR.mh[4]);
+
               L_STATS <- c(L_STATS, STAT);
               L_CIL = c(L_CIL, CIL);
               L_CIH = c(L_CIH, CIH);
