@@ -13,12 +13,13 @@ setClass("ec.ccinter",
 # Real constructor
 # ------------------------------------------------------------------------------
 setMethod("initialize", "ec.ccinter",
-          function(.Object, x, exposure, by)
+          function(.Object, df, outcome, exposure, by, data)
           {
-            
-            .strate = GDS[,by]
-            if(!is.factor(GDS[,by])) {
-              .strate <- as.factor(GDS[,by])
+            .ldf = df
+            .strate = .ldf[,by]
+ 
+            if(!is.factor(.ldf[,by])) {
+              .strate <- as.factor(.ldf[,by])
             }
 
             L_LABELS1  <- vector();
@@ -34,7 +35,7 @@ setMethod("initialize", "ec.ccinter",
             # Return labels of columns of the output data.frame
             # -----------------------------------------------------------------
             getColnames <- function() {
-              C1Label = sprintf("CCInter %s / %s", x, exposure);
+              C1Label = sprintf("CCInter %s / %s", outcome, exposure);
               return (c(C1Label,"Cases","Controls","P.est.","Statistics","95%CI-L","95%CI-H"))
             }
             
@@ -56,8 +57,9 @@ setMethod("initialize", "ec.ccinter",
             }
             
             getCrudeOR <- function() {
-              df <- GDS[!is.na(GDS[x]) & !is.na(GDS[exposure]) & !is.na(GDS[by]), c(x, exposure)]
-              .T <- table(df[,x], df[,exposure])
+              df <- .ldf[!is.na(.ldf[outcome]) & !is.na(.ldf[exposure]) & !is.na(.ldf[by]),
+                         c(outcome, exposure)]
+              .T <- table(df[,outcome], df[,exposure])
               .r = or(.T)
               .r
             }
@@ -68,7 +70,7 @@ setMethod("initialize", "ec.ccinter",
               .loop = length(levels(.strate))
               for (i in 1:.loop) {
                 .level <- levels(.strate)[i]
-                .T = table(GDS[VAL(by)==.level, exposure], GDS[VAL(by)==.level, x])
+                .T = table(.ldf[VAL(by)==.level, exposure], .ldf[VAL(by)==.level, outcome])
 
                 L_LABELS1 <- c(L_LABELS1, getOddsLabels(.level))
                 LABS_ESTIM <- c(LABS_ESTIM, getLabEstim())
@@ -117,7 +119,7 @@ setMethod("initialize", "ec.ccinter",
 
               }
               
-              .T <- table(GDS[,x], GDS[,exposure], GDS[,by]);
+              .T <- table(.ldf[,outcome], .ldf[,exposure], .ldf[,by]);
               R <- CC_STATS(.T);
 
               # Number of obs
@@ -126,8 +128,8 @@ setMethod("initialize", "ec.ccinter",
               
               # MISSING
               # ------------------------------------------------------------
-              MIS_TO = nrow(GDS) - NB_TOTAL;
-              MIS_PC = sprintf("%3.2f%s", (MIS_TO / nrow(GDS))*100, '%');
+              MIS_TO = nrow(.ldf) - NB_TOTAL;
+              MIS_PC = sprintf("%3.2f%s", (MIS_TO / nrow(.ldf))*100, '%');
               L_CASES = c(L_CASES, MIS_TO);
               
               # MH test of Homogeneity pvalue
@@ -196,7 +198,7 @@ setMethod("show" ,"ec.ccinter" ,
 # function: ec.ccinter (call real constructor)
 # Return: an object of type ec.ccinter
 # -----------------------------------------------------------------------------
-ec.ccinter <- function(x, exposure="", by="")
+ec.ccinter <- function(df, outcome, exposure="", by="", data=NULL)
 {
-  return(new("ec.ccinter", x=x, exposure=exposure, by=by));
+  return(new("ec.ccinter", df=df, outcome=outcome, exposure=exposure, by=by));
 }
